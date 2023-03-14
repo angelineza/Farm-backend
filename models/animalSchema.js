@@ -15,7 +15,7 @@ var animalSchema = new mongoose.Schema({
         required:true
     }
 });
-const Animal = mongoose.model('Items',itemsSchema);
+const Animal = mongoose.model('Animals',animalSchema);
 
 function validate(animal){
     const schema = {

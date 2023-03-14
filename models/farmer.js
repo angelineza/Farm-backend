@@ -31,7 +31,7 @@ farmerSchema.methods.generateAuthToken = function () {
     return token
 }
 
-const Farmer = mongoose.model('Items',farmerSchema);
+const Farmer = mongoose.model('Farmers',farmerSchema);
 
 function validate(farmer){
     const schema = {

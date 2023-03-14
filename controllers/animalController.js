@@ -1,9 +1,9 @@
 const hashPassword = require('../utils/hash')
 const _ = require('lodash')
 const express = require('express');
-const { Animal, validate } = require('../models/items')
+const { Animal, validate } = require('../models/animalSchema')
 var router = express.Router();
-router.get('/', async (req, res) => {
+router.get('/animals', async (req, res) => {
     const animals = await Animal.find().sort({ name: 1 });
     return res.send(animals)
 });
@@ -11,6 +11,19 @@ router.get('/:name', async (req, res) => {
     const animals = await Animal.find({name:req.params.name});
     return res.send(animals)
 });
+router.post('/',async(req,res)=>{
+    try{
+    const {name,role}=req.body;
+    const newAnimal= new Animal();
+    newAnimal.name=name;
+    newAnimal.role=role;
+    await newAnimal.save();
+    res.status(200).json({message:'new user saved!'});
+    } catch (err) {
+        res.status(500).json({message:'Internal server error'})
+        console.log(err)
+    }
+})
 router.post('/:name', async (req, res) => {
     const { error } = validate(req.body)
     if (error) return res.send(error.details[0]

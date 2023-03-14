@@ -18,6 +18,8 @@ if (!config.get("jwtPrivateKey")) {
 app.get('/', (req, res) => {
     res.send('Welcome to our app');
 });
+app.post('/',animalController);
+app.get('/animals',animalController)
 // app.use('/v1/api/animalClasses', [authMiddleware, admin], animalClassController);
 // app.use('/v1/api/animals', [authMiddleware, admin], animalController);
 app.use('/v1/api/animals',animalController);
