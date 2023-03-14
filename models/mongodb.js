@@ -5,4 +5,4 @@ mongoose.connect('mongodb://127.0.0.1:27017/rca-farm', {
 })
     .then(() => console.log('connected to mongodb successfully....'))
     .catch(err => console.log('failed to connect to mongodb', err));
-require('./animal');
+require('./items');

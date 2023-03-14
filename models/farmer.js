@@ -42,5 +42,7 @@ function validate(farmer){
     }
     return Joi.validate(item, schema)
 }
-module.exports.Farmer = Farmer
-module.exports.validate = validate
+module.exports= {
+    Farmer,
+    validate
+}

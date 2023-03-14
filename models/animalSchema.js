@@ -15,16 +15,6 @@ var animalSchema = new mongoose.Schema({
         required:true
     }
 });
-animalSchema.methods.generateAuthToken = function () {
-    const token = jwt.sign(
-        {
-            _id: this._id, name: this.name, email: this.email,
-            isAdmin: this.isAdmin
-        }
-        , config.get('jwtPrivateKey'))
-    return token
-}
-
 const Animal = mongoose.model('Items',itemsSchema);
 
 function validate(animal){

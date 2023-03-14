@@ -1,7 +1,7 @@
 const hashPassword = require('../utils/hash')
 const _ = require('lodash')
 const express = require('express');
-const { Animal, validate } = require('../models/animal')
+const { Animal, validate } = require('../models/items')
 var router = express.Router();
 router.get('/', async (req, res) => {
     const animals = await Animal.find().sort({ name: 1 });

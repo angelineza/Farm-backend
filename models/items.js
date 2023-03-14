@@ -3,7 +3,6 @@ const Joi = require('joi')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const config = require('config')
-//Attributes of the Course object
 var itemsSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -11,21 +10,20 @@ var itemsSchema = new mongoose.Schema({
         maxlength: 255,
         minlength: 3
     },
-    classId:{
-        // type:mongoose.type.objectId,
+    role: {
         type:String,
         required:true
     }
 });
-itemsSchema.methods.generateAuthToken = function () {
-    const token = jwt.sign(
-        {
-            _id: this._id, name: this.name, email: this.email,
-            isAdmin: this.isAdmin
-        }
-        , config.get('jwtPrivateKey'))
-    return token
-}
+// itemsSchema.methods.generateAuthToken = function () {
+//     const token = jwt.sign(
+//         {
+//             _id: this._id, name: this.name, email: this.email,
+//             isAdmin: this.isAdmin
+//         }
+//         , config.get('jwtPrivateKey'))
+//     return token
+// }
 const Items = mongoose.model('Items',itemsSchema);
 function validate(item){
     const schema = {
@@ -33,5 +31,5 @@ function validate(item){
     }
     return Joi.validate(item, schema)
 }
-module.exports.Items = Items
-module.exports.validate = validate
+// module.exports.Items = Items
+// module.exports.validate = validate
