@@ -36,7 +36,7 @@ const addAnimal=async function (req, res){
     };
 
 //Deleting an animal
-const deleteAnimal= async function(req,res){
+const deleteAnimal=async function(req,res){
     Animal.findByIdAndDelete({name:req.params.name})
     .then(res.status(200).json({message:'Animal deleted successfully!'}))
     .catch((err)=>{res.status(500).json(err)});
