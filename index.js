@@ -1,5 +1,6 @@
 require('./models/mongodb')
 const animalController = require('./controllers/animalController');
+const farmerController= require('./controllers/farmerController');
 const authMiddleware = require('./middleware/auth')
 const config = require('config')
 const admin = require('./middleware/admin')
@@ -16,14 +17,16 @@ if (!config.get("jwtPrivateKey")) {
     process.exit(1)
 }
 app.get('/', (req, res) => {
-    res.send('Welcome to our app');
+    res.send('Welcome to our farm!!!');
 });
-app.post('/',animalController);
-app.get('/animals',animalController)
-// app.use('/v1/api/animalClasses', [authMiddleware, admin], animalClassController);
-// app.use('/v1/api/animals', [authMiddleware, admin], animalController);
-app.use('/v1/api/animals',animalController);
-// app.use('/v1/api/users', userController)
-// app.use('/v1/api/auth', auth)
+// app.post('/',animalController);
+// app.get('/animals',animalController);
+// app.get('/farmers',farmerController);
+// app.post('/farmer',farmerController);
+// // app.use('/v1/api/animalClasses', [authMiddleware, admin], animalClassController);
+// // app.use('/v1/api/animals', [authMiddleware, admin], animalController);
+// app.use('/v1/api/animals',animalController);
+// // app.use('/v1/api/users', userController)
+// // app.use('/v1/api/auth', auth)
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Listening on port ${port}..`));

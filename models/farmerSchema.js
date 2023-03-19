@@ -21,7 +21,14 @@ var farmerSchema = new mongoose.Schema({
         required:true
     }
 });
-farmerSchema.methods.generateAuthToken = function () {
+
+farmerSchema.pre('save', async function(next){
+    const salt=await bcrypt.genSalt(10)
+     this.password = await bcrypt.hash(this.password, salt)
+    next()
+ });
+
+const giveToken=farmerSchema.methods.generateAuthToken=function () {
     const token = jwt.sign(
         {
             _id: this._id, name: this.name, email: this.email,
@@ -29,20 +36,27 @@ farmerSchema.methods.generateAuthToken = function () {
         }
         , config.get('jwtPrivateKey'))
     return token
-}
+};
 
 const Farmer = mongoose.model('Farmers',farmerSchema);
 
-function validate(farmer){
+const validate= function(farmer){
     const schema = {
         name: Joi.string().max(255).min(3),
         email: Joi.string().max(255).min(3),
-        role: Jou.string().max(255).min(3),
-        isAdmin: Joi.boolean()
+        role: Joi.string().max(255).min(3),
+        isAdmin: Joi.boolean().required()
     }
     return Joi.validate(item, schema)
 }
 module.exports= {
     Farmer,
-    validate
+    validate,
+    giveToken
 }
+
+
+// {
+//     "name": "auth",
+//     "description": "Auth apis"
+// }, in swagger.json line 27
