@@ -4,6 +4,6 @@ const token= function(){
         name:this.name,
         email:this.email,
         password:this.password
-    },process.env.Secrete,{expiresIn:'1d'})
+    },process.env.jwtPrivateKey,{expiresIn:'10d'})
     return yourToken;
 };

@@ -1,32 +1,32 @@
-require('./models/mongodb')
-const animalController = require('./controllers/animalController');
-const farmerController= require('./controllers/farmerController');
-const authMiddleware = require('./middleware/auth')
-const config = require('config')
-const admin = require('./middleware/admin')
-const express = require('express');
-const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('./swagger.json');
-var app = express();
-const bodyparser = require('body-parser');
-app.use(bodyparser.urlencoded({ extended: true }));
-app.use(bodyparser.json());
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-if (!config.get("jwtPrivateKey")) {
-    console.log('JWT PRIVATE KEY IS NOT DEFINED')
-    process.exit(1)
-}
-app.get('/', (req, res) => {
-    res.send('Welcome to our farm!!!');
+const config=require('config');
+const dotenv=require('dotenv');
+dotenv.config({path:'./.env'});
+const mongoose=require('mongoose');
+const bodyParser = require('body-parser');
+const swaggerUi=require('swagger-ui-express');
+const swaggerDocument=require('./swagger.json');
+const express=require('express');
+const app= express();
+app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.json());
+app.use('swagger',swaggerUi.serve,swaggerUi.setup(swaggerDocument));
+
+if(!config.get('jwtPrivateKey')){
+    console.log('The jwt private key is needed.')
+    process.exit(1);
+};
+
+//connecting to mongodb
+const url='mongodb://127.0.0.1:27017/rca-farm';
+mongoose.connect(url,{
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
+    .then(() => console.log('connected to mongodb successfully....'))
+    .catch(err => console.log('failed to connect to mongodb', err));
+
+//getting the port
+const port=process.env.PORT;
+app.listen(port,()=>{
+    console.log(`Listening on port ${port}...`);
 });
-// app.post('/',animalController);
-// app.get('/animals',animalController);
-// app.get('/farmers',farmerController);
-// app.post('/farmer',farmerController);
-// // app.use('/v1/api/animalClasses', [authMiddleware, admin], animalClassController);
-// // app.use('/v1/api/animals', [authMiddleware, admin], animalController);
-// app.use('/v1/api/animals',animalController);
-// // app.use('/v1/api/users', userController)
-// // app.use('/v1/api/auth', auth)
-const port = process.env.PORT || 5000;
-app.listen(port, () => console.log(`Listening on port ${port}..`));

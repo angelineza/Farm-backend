@@ -1,10 +1,9 @@
-const config = require('config')
-const jwt = require('jsonwebtoken')
+const config = require('config');
+const jwt = require('jsonwebtoken');
 
-function auth(req, res, next) {
-    const token = req.header('Authorization')
-    //console.log('Token......',token.split('Bearer ')[1])
-    if (!token) return res.send({ error: 'token missing..' }).status(401)
+function auth(req,res,next) {
+    const token=req.header('Authorization');
+    if (!token) return res.send({ error: 'token is missing..' }).status(401)
     try {
         const decoded =
             jwt.verify(token.split('Bearer ')[1], config.get('jwtPrivateKey'))

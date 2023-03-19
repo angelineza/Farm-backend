@@ -25,10 +25,6 @@
             }
         },
         {
-            "name": "auth",
-            "description": "Auth apis"
-        },
-        {
             "name": "farmer",
             "description": "Operations about farmer",
             "externalDocs": {
@@ -412,3 +408,4 @@
         "url": "http://swagger.io"
     }
 }
+
