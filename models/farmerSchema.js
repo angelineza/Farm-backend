@@ -3,9 +3,9 @@ const Joi = require('joi')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const config = require('config');
-// const {boolean} = require('joi');
-var farmerSchema = new mongoose.Schema({
-    name: {
+
+var farmerSchema =new mongoose.Schema({
+    name:{
         type: String,
         required: true,
         maxlength: 255,
@@ -22,7 +22,7 @@ var farmerSchema = new mongoose.Schema({
         unique:true
     },
     isAdmin:{
-        type:boolean,
+        type:Boolean,
         required:true
     }
 });
@@ -33,7 +33,7 @@ farmerSchema.pre('save', async function(next){
     next();
  });
 
-farmerSchema.methods.generateAuthToken=function (){
+const giveToken= farmerSchema.methods.generateAuthToken=function(){
     const token = jwt.sign(
         {
             _id:this._id, 
@@ -45,12 +45,12 @@ farmerSchema.methods.generateAuthToken=function (){
         , config.get('jwtPrivateKey'))
     return token;
 };
-const Farmer = mongoose.model('Farmers',farmerSchema);
+const Farmer = mongoose.model('Farmer',farmerSchema);
 
-module.exports= {
+module.exports={
     Farmer,
-    generateAuthToken
-}
+    giveToken
+};
 
 
 // {

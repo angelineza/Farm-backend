@@ -16,8 +16,8 @@ var animalSchema = new mongoose.Schema({
     }
 });
 
-const Animal = mongoose.model('Animals',animalSchema);
+const Animal = mongoose.model('animals',animalSchema);
 
 module.exports={
-    Animal,
+    Animal
 }

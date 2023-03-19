@@ -17,16 +17,16 @@ if(!config.get('jwtPrivateKey')){
 };
 
 //connecting to mongodb
-const url='mongodb://127.0.0.1:27017/rca-farm';
-mongoose.connect(url,{
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
-    .then(() => console.log('connected to mongodb successfully....'))
-    .catch(err => console.log('failed to connect to mongodb', err));
-
+require('./models/mongodb');
 //getting the port
-const port=process.env.PORT;
+const port=5000;
 app.listen(port,()=>{
     console.log(`Listening on port ${port}...`);
 });
+
+//configuring routes
+const animalRouter=require('./routes/animalRoutes');
+const farmerRouter= require('./routes/farmerRoutes');
+app.use(animalRouter);
+app.use(farmerRouter);
+app.get('/home',(req,res)=>{res.send('Welcome to our farm!')});

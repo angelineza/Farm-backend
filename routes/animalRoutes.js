@@ -1,11 +1,11 @@
 const express=require('express');
-const{getAllAnimals,getAnimalByName, addAnimal,updateAnimal,deleteANimal}=require('../controllers/animalController');
-const router= express.Router();
+const{getAllAnimals,getAnimalByName, addAnimal,updateAnimal,deleteAnimal}=require('../controllers/animalController');
+const app= express.Router();
 
-router.post('/animal/sadd',addAnimal);
-router.get('/animals',getAllAnimals);
-router.get('/animal/:name',getAnimalByName);
-router.delete('animal/delete/:name',deleteANimal);
-router.put('/animal/update/:name',updateAnimal);
+app.post('/animal/add',addAnimal);
+app.get('/animals',getAllAnimals);
+app.get('/animal/:name',getAnimalByName);
+app.delete('animal/delete/:name',deleteAnimal);
+app.put('/animal/update/:name',updateAnimal);
 
-module.exports=router;
+module.exports=app;

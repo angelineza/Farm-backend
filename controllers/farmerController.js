@@ -1,8 +1,6 @@
-const hashPassword = require('../utils/hash')
-const _ = require('lodash')
+const _ = require('lodash');
 const express = require('express');
-const { Animal, validate, Farmer } = require('../models/farmerSchema');
-const { func } = require('joi');
+const {Farmer,giveToken} = require('../models/farmerSchema');
 
 //Creating anew farmer account
 const createFarmer= async function(req,res){
@@ -64,7 +62,7 @@ const farmerLogin= async function(req,res){
         res.status(200).send(token)
        } catch (err) {
         console.log(err);
-        res.status(500).send('Internal server error')
+        res.status(500).send('Internal server error');
        }
 };
 
